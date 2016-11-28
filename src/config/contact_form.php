@@ -81,6 +81,11 @@
 				'generate_from' => 'title'
 			], 
 			[
+				'name' => 'description', 
+				'type' => 'rich_text', 
+				'value' => ''
+			], 
+			[
 				'name' => 'thank_you_message', 
 				'type' => 'rich_text', 
 				'value' => ''
