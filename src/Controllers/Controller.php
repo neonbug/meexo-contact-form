@@ -105,8 +105,9 @@ class Controller extends \App\Http\Controllers\Controller {
 		$data = [];
 		foreach ($form_config['fields'] as $form_field)
 		{
+			$required = (array_key_exists('required', $form_field) ? $form_field['required'] : true);
 			$val = Request::input($form_field['name'], '');
-			if ($val == '')
+			if ($val == '' && $required)
 			{
 				return [ 'success' => false, 'error_code' => 3, 'error_message' => 'Missing required field' ];
 			}

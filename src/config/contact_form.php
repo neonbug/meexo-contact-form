@@ -115,17 +115,20 @@
 				[
 					'name' => 'email', 
 					'type' => 'single_line_text', 
-					'title' => 'contact_form::frontend.default.email'
+					'title' => 'contact_form::frontend.default.email', 
+					'required' => true
 				], 
 				[
 					'name' => 'name', 
 					'type' => 'single_line_text', 
-					'title' => 'contact_form::frontend.default.name'
+					'title' => 'contact_form::frontend.default.name', 
+					'required' => true
 				], 
 				[
 					'name' => 'message', 
 					'type' => 'multi_line_text', 
-					'title' => 'contact_form::frontend.default.message'
+					'title' => 'contact_form::frontend.default.message', 
+					'required' => true
 				], 
 			], 
 			'submit_title' => 'contact_form::frontend.default.submit', 
