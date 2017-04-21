@@ -77,6 +77,15 @@ class ServiceProvider extends \Neonbug\Common\Providers\BaseServiceProvider {
 				'as'   => static::PREFIX . '::submit', 
 				'uses' => static::CONTROLLER . '@submitPost'
 			]);
+			// provide submit via get as well
+			//   while it is less secure, it allows for submitting without CSRF
+			//   which is important, since that allows for session-less experience
+			//   which is important, since that allows for cookie-less experience
+			//   blame the EU cookie law
+			$router->get('submit/{id}', [
+				'as'   => static::PREFIX . '::submit', 
+				'uses' => static::CONTROLLER . '@submitPost'
+			]);
 			
 			if ($language != null)
 			{

@@ -4,6 +4,7 @@ var ContactForm = {
 	error_event_handler: null, 
 	before_ajax_event_handler: null, 
 	csrf_token: '', 
+	method: 'POST', 
 	
 	init: function(settings) {
 		var self = ContactForm;
@@ -14,8 +15,14 @@ var ContactForm = {
 		self.before_ajax_event_handler = settings.before_ajax_event_handler;
 		self.csrf_token                = settings.csrf_token;
 		
+		if (settings.method)
+		{
+			self.method = settings.method;
+		}
+		
 		var base_url   = self.base_url;
 		var csrf_token = self.csrf_token;
+		var method     = self.method;
 		
 		$('.contact-form').each(function(idx, item) {
 			var id_contact_form = $(item).data('id-contact-form');
@@ -36,10 +43,10 @@ var ContactForm = {
 				}
 				
 				$.ajax({
-					method: 'POST', 
+					method: method, 
 					url: base_url.replace(':id:', id_contact_form), 
 					data: post_data, 
-					headers: { 'X-CSRF-TOKEN': csrf_token }
+					headers: (csrf_token == null ? {} : { 'X-CSRF-TOKEN': csrf_token })
 				}).done(function(data) {
 					if (data.success)
 					{
