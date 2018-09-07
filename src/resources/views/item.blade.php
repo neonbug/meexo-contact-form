@@ -1,7 +1,7 @@
 <script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
 
 <script src="https://www.google.com/recaptcha/api.js"></script>
-<script src="{{ cached_asset('vendor/contact_form/assets/js/partial.js') }}"></script>
+<script src="{{ cached_asset('vendor/contact_form/js/partial.js') }}"></script>
 <script type="text/javascript">
 $(function() {
 	ContactForm.init({
