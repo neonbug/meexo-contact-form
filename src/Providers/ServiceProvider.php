@@ -245,7 +245,7 @@ class ServiceProvider extends \Neonbug\Common\Providers\BaseServiceProvider {
 			 * one of the routes with language postfix
 			 */
 			foreach ([
-				$route_name_prefix . $slug->value, 
+				$route_name_prefix . $slug->value . $postfix, 
 				$route_name_prefix . 'item-' . $slug->id_row . $postfix, 
 			] as $route_alias) {
 				$router->get($slug->value, [ 'as' => $route_alias, 
