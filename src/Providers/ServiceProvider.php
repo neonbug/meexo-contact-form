@@ -57,7 +57,7 @@ class ServiceProvider extends \Neonbug\Common\Providers\BaseServiceProvider {
 		//== ROUTES ==
 		//============
 		$language = App::make('Language');
-		$languages = $language::all();
+		$languages = ($language == null ? [] : $language::all());
 		$locale = ($language == null ? Config::get('app.default_locale') : $language->locale);
 		
 		$admin_language = App::make('AdminLanguage');
