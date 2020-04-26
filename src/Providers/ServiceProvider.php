@@ -20,10 +20,9 @@ class ServiceProvider extends \Neonbug\Common\Providers\BaseServiceProvider {
 	/**
 	 * Define your route model bindings, pattern filters, etc.
 	 *
-	 * @param    \Illuminate\Routing\Router  $router
 	 * @return  void
 	 */
-	public function boot(Router $router)
+	public function boot()
 	{
 		//============
 		//== ASSETS ==
@@ -75,7 +74,7 @@ class ServiceProvider extends \Neonbug\Common\Providers\BaseServiceProvider {
 					null : 
 					$resource_repo->getSlugs($language_item->id_language, static::TABLE_NAME);
 			
-			$router->group([ 'middleware' => [ 'online' ], 'prefix' => $language_item->locale ], 
+			Route::group([ 'middleware' => [ 'online' ], 'prefix' => $language_item->locale ], 
 				function($router) use ($slugs, $slug_routes_at_root, $language_item, $locale)
 			{
 				$router->group([ 'prefix' => trans(static::PACKAGE_NAME . '::frontend.route.prefix', [], 'messages', $language_item->locale) ], 
@@ -182,7 +181,7 @@ class ServiceProvider extends \Neonbug\Common\Providers\BaseServiceProvider {
 		}
 		
 		//admin
-		$router->group([ 'prefix' => $admin_locale . '/admin/' . static::PREFIX, 
+		Route::group([ 'prefix' => $admin_locale . '/admin/' . static::PREFIX, 
 			'middleware' => [ 'auth.admin', 'admin.menu' ], 'role' => static::ROLE, 
 			'menu.icon' => 'at' ], function($router)
 		{
@@ -210,7 +209,7 @@ class ServiceProvider extends \Neonbug\Common\Providers\BaseServiceProvider {
 			]);
 		});
 
-		$router->group([ 'prefix' => $admin_locale . '/admin/' . static::PREFIX, 'middleware' => [ 'auth.admin' ], 
+		Route::group([ 'prefix' => $admin_locale . '/admin/' . static::PREFIX, 'middleware' => [ 'auth.admin' ], 
 			'role' => static::ROLE ], function($router)
 		{
 			$router->post('delete', [
@@ -224,7 +223,7 @@ class ServiceProvider extends \Neonbug\Common\Providers\BaseServiceProvider {
 			]);
 		});
 
-		parent::boot($router);
+		parent::boot();
 	}
 	
 	protected function setRoutesFromSlugs($router, $slugs, $route_name_prefix_postfix = '', $route_name_postfix = '')
