@@ -59,7 +59,7 @@ var ContactForm = {
 					{
 						if (self.error_event_handler != null)
 						{
-							self.error_event_handler(id_contact_form);
+							self.error_event_handler(id_contact_form, data);
 						}
 					}
 					
