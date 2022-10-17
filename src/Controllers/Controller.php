@@ -122,7 +122,7 @@ class Controller extends \App\Http\Controllers\Controller {
 		$subject = trans(static::PACKAGE_NAME . '::frontend.mail.subject', [], 'messages', $admin_locale);
 		
 		$view_name = App::make('\Neonbug\Common\Helpers\CommonHelper')->resolveViewName(static::PACKAGE_NAME, 'mail');
-		Mail::send($view_name, [ 'title' => $title, 'data' => $data ], function($message) use ($item, $subject) {
+		Mail::send($view_name, [ 'title' => $title, 'data' => $data, 'form_config' => $form_config ], function($message) use ($item, $subject) {
 			$message->to($item->getRecepients());
 			$message->subject($subject);
 		});
