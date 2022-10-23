@@ -78,7 +78,7 @@ class ServiceProvider extends \Neonbug\Common\Providers\BaseServiceProvider {
 			$router->group([ 'middleware' => [ 'online' ], 'prefix' => $language_item->locale ], 
 				function($router) use ($slugs, $slug_routes_at_root, $language_item, $locale)
 			{
-				$router->group([ 'prefix' => trans(static::PACKAGE_NAME . '::frontend.route.prefix', [], 'messages', $language_item->locale) ], 
+				$router->group([ 'prefix' => trans(static::PACKAGE_NAME . '::frontend.route.prefix', [], $language_item->locale) ], 
 					function($router) use ($slugs, $slug_routes_at_root, $language_item, $locale)
 				{
 					$lang_postfix = '::' . $language_item->locale;
