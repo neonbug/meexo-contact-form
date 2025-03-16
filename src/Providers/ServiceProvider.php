@@ -86,13 +86,13 @@ class ServiceProvider extends \Neonbug\Common\Providers\BaseServiceProvider {
 					/*
 					 * If language_item is current language, then we need to
 					 * create all routes twice - once with lang_postfix and once without.
-					 * Order matters - without language postfix should be at the end
+					 * Order matters - without language postfix should be at the start
 					 * to enable Route::currentRouteName to return this route, instead of
 					 * one of the routes with language postfix.
 					 */
 					$postfixes = 
 						$language_item->locale == $locale ? 
-							[ $lang_postfix, '' ] : 
+							[ '', $lang_postfix ] : 
 							[ $lang_postfix ];
 					
 					foreach ($postfixes as $postfix)
@@ -127,15 +127,8 @@ class ServiceProvider extends \Neonbug\Common\Providers\BaseServiceProvider {
 					
 					if ($slugs != null)
 					{
-						$this->setRoutesFromSlugs(
-							$router, 
-							$slugs, 
-							($slug_routes_at_root === true ? 'default' : ''), 
-							$language_item->locale
-						);
-						
 						/*
-						 * Order matters - route without language postfix should be at the end
+						 * Order matters - route without language postfix should be at the start
 						 * to enable Route::currentRouteName to return this route, instead of
 						 * one of the routes with language postfix
 						 */
@@ -147,6 +140,13 @@ class ServiceProvider extends \Neonbug\Common\Providers\BaseServiceProvider {
 								($slug_routes_at_root === true ? 'default' : '')
 							);
 						}
+						
+						$this->setRoutesFromSlugs(
+							$router, 
+							$slugs, 
+							($slug_routes_at_root === true ? 'default' : ''), 
+							$language_item->locale
+						);
 					}
 				});
 
@@ -155,15 +155,8 @@ class ServiceProvider extends \Neonbug\Common\Providers\BaseServiceProvider {
 				{
 					if ($slugs != null)
 					{
-						$this->setRoutesFromSlugs(
-							$router, 
-							$slugs, 
-							'', 
-							$language_item->locale
-						);
-						
 						/*
-						 * Order matters - route without language postfix should be at the end
+						 * Order matters - route without language postfix should be at the start
 						 * to enable Route::currentRouteName to return this route, instead of
 						 * one of the routes with language postfix
 						 */
@@ -175,6 +168,13 @@ class ServiceProvider extends \Neonbug\Common\Providers\BaseServiceProvider {
 								''
 							);
 						}
+						
+						$this->setRoutesFromSlugs(
+							$router, 
+							$slugs, 
+							'', 
+							$language_item->locale
+						);
 					}
 				}
 			});
@@ -239,13 +239,13 @@ class ServiceProvider extends \Neonbug\Common\Providers\BaseServiceProvider {
 			if ($slug->value == '') continue;
 			
 			/*
-			 * Order matters - route without language postfix should be at the end
+			 * Order matters - route without language postfix should be at the start
 			 * to enable Route::currentRouteName to return this route, instead of
 			 * one of the routes with language postfix
 			 */
 			foreach ([
-				$route_name_prefix . $slug->value . $postfix, 
 				$route_name_prefix . 'item-' . $slug->id_row . $postfix, 
+				$route_name_prefix . $slug->value . $postfix, 
 			] as $route_alias) {
 				$router->get($slug->value, [ 'as' => $route_alias, 
 					function() use ($slug) {
