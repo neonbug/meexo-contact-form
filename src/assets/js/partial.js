@@ -47,8 +47,8 @@ var ContactForm = {
 					url: base_url.replace(':id:', id_contact_form), 
 					data: post_data, 
 					headers: (csrf_token == null ? {} : { 'X-CSRF-TOKEN': csrf_token })
-				}).done(function(data) {
-					if (data.success)
+				}).always(function(data) {
+					if (data.success === true)
 					{
 						if (self.success_event_handler != null)
 						{
